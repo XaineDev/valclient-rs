@@ -1,4 +1,4 @@
-use crate::valclient_rs::resources::Region::{Ap, Br, Eu, Kr, Latam, Na, Pbe, NONE};
+use crate::valclient_rs::resources::Region::{Ap, Br, Eu, Kr, Latam, Na, None, Pbe};
 use std::collections::HashMap;
 
 #[derive(Hash, Eq, PartialEq, Debug)]
@@ -10,16 +10,16 @@ pub enum Region {
     Ap,
     Kr,
     Pbe,
-    NONE,
+    None,
 }
 
 impl Region {
-    pub fn is_valid_region(region: &String) -> bool {
-        Region::from(region) != NONE
+    pub fn is_valid_region(region: &str) -> bool {
+        Region::from(region) != None
     }
 
-    pub fn from(region: &String) -> Self {
-        match region.as_str() {
+    pub fn from(region: &str) -> Self {
+        match region {
             "na" => Na,
             "eu" => Eu,
             "latam" => Latam,
@@ -27,7 +27,7 @@ impl Region {
             "ap" => Ap,
             "kr" => Kr,
             "pbe" => Pbe,
-            _ => NONE,
+            _ => None,
         }
     }
 }
@@ -48,6 +48,7 @@ impl std::fmt::Display for Region {
     }
 }
 
+/* todo: reimplement
 pub enum QueueType {
     Competitive,
     Custom,
@@ -57,8 +58,10 @@ pub enum QueueType {
     SpikeRush,
     Unrated,
     OneFa,
-    NULL,
+    Null,
 }
+ */
+
 pub struct Resources {
     pub region_shard_override: HashMap<Region, Region>,
     pub shard_region_override: HashMap<Region, Region>,

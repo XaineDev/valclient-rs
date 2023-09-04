@@ -59,7 +59,7 @@ impl LockfileData {
 
     fn read_lockfile(path: PathBuf) -> (String, String, String, String, String) {
         let lockfile_contents = std::fs::read_to_string(path).expect("Failed to read lockfile");
-        let lockfile_split: Vec<&str> = lockfile_contents.split(":").collect();
+        let lockfile_split: Vec<&str> = lockfile_contents.split(':').collect();
 
         (
             lockfile_split[0].to_owned(),

@@ -1,7 +1,5 @@
 use crate::valclient_rs::errors::ValClientError;
 use crate::valclient_rs::UserAuthentication;
-use reqwest::header::HeaderMap;
-use std::collections::HashMap;
 
 pub struct Auth {
     pub username: String,
@@ -22,9 +20,9 @@ impl Auth {
 
     pub fn authenticate(&self) -> Result<UserAuthentication, ValClientError> {
         // todo: finish authentication with usernames
-        return Err(ValClientError::new(
+        Err(ValClientError::new(
             "Authentication failed",
             "Username authentication is not supported yet",
-        ));
+        ))
     }
 }

@@ -1,4 +1,4 @@
-mod auth;
+pub(crate) mod auth;
 pub mod errors;
 mod lockfile;
 pub mod resources;
@@ -7,7 +7,6 @@ use crate::valclient_rs::auth::Auth;
 use crate::valclient_rs::errors::ValClientError;
 use crate::valclient_rs::lockfile::LockfileData;
 use crate::valclient_rs::resources::{Region, Resources};
-use std::io::BufRead;
 
 use base64::{engine::general_purpose, Engine as _};
 use reqwest::blocking;
@@ -45,7 +44,7 @@ pub struct ValClient {
 }
 
 impl ValClient {
-    pub fn new(region: &String, auth_opt: Option<Auth>) -> Result<Self, ValClientError> {
+    pub fn new(region: &str, auth_opt: Option<Auth>) -> Result<Self, ValClientError> {
         let lockfile_result = LockfileData::new();
         let lockfile = match lockfile_result {
             Ok(data) => data,
@@ -68,8 +67,8 @@ impl ValClient {
             },
             player_name: "".to_string(),
             player_tag: "".to_string(),
-            region: region.clone(),
-            shard: region.clone(),
+            region: region.to_owned(),
+            shard: region.to_owned(),
             client_platform: "ew0KCSJwbGF0Zm9ybVR5cGUiOiAiUEMiLA0KCSJwbGF0Zm9ybU9TIjogIldpbmRvd3MiLA0KCSJwbGF0Zm9ybU9TVmVyc2lvbiI6ICIxMC4wLjE5MDQyLjEuMjU2LjY0Yml0IiwNCgkicGxhdGZvcm1DaGlwc2V0IjogIlVua25vd24iDQp9".to_string(),
 
             auth,
@@ -203,7 +202,7 @@ impl ValClient {
                 ))
                 .unwrap()
                 .to_string()
-                .split(".")
+                .split('.')
                 .nth(3)
                 .ok_or(ValClientError::new(
                     "failed to get version number",

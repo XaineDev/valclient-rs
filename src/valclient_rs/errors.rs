@@ -1,6 +1,6 @@
 use json::JsonError;
 use reqwest::header::InvalidHeaderValue;
-use std::fmt::{write, Debug, Display, Formatter};
+use std::fmt::{Debug, Display, Formatter};
 
 pub struct ValClientError {
     pub data: String,
